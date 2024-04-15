@@ -4,7 +4,6 @@ import { Repository } from 'typeorm';
 import { PontoDeDoacao } from '../entidades/pontosdedoacao';
 import { CreatePontoDeDoacaoDto, UpdatePontoDeDoacaoDto } from '../dtos/pontoDeDoacao.dto';  // Assumindo que você criou DTOs
 
-
 @Injectable()
 export class PontoDeDoacaoService {
   constructor(
@@ -20,10 +19,6 @@ export class PontoDeDoacaoService {
     return this.pontoDeDoacaoRepository.findOneBy({ id });
   }
 
-  async delete(id: number): Promise<void> {
-    await this.pontoDeDoacaoRepository.delete(id);
-  }
-
   create(createPontoDeDoacaoDto: CreatePontoDeDoacaoDto): Promise<PontoDeDoacao> {
     const novoPonto = this.pontoDeDoacaoRepository.create(createPontoDeDoacaoDto);
     return this.pontoDeDoacaoRepository.save(novoPonto);
@@ -35,7 +30,6 @@ export class PontoDeDoacaoService {
   }
 
   async delete(id: number): Promise<void> {
-    await this.pontoDeDoacaoRepository.delete(id);  
+    await this.pontoDeDoacaoRepository.delete(id);
   }
-
 }
