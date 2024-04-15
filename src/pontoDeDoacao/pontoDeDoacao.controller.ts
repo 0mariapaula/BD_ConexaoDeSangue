@@ -1,9 +1,7 @@
-// src/pontoDeDoacao/pontoDeDoacao.controller.ts
-
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Param, Delete } from '@nestjs/common';
 import { PontoDeDoacaoService } from './pontoDeDoacao.service';
 
-@Controller('pontos-de-doacao')
+@Controller('pontosDeDoacao')
 export class PontoDeDoacaoController {
   constructor(private readonly pontoDeDoacaoService: PontoDeDoacaoService) {}
 
@@ -17,5 +15,8 @@ export class PontoDeDoacaoController {
     return this.pontoDeDoacaoService.findOne(id);
   }
 
-  // Adicione métodos para Post, Delete etc. conforme necessário
+  @Delete(':id')
+  remove(@Param('id') id: number) {
+    return this.pontoDeDoacaoService.delete(id);
+  }
 }

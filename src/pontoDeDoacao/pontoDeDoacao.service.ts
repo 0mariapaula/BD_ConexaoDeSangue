@@ -1,9 +1,7 @@
-// src/pontoDeDoacao/pontoDeDoacao.service.ts
-
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { PontoDeDoacao } from '../entidades/pontoDeDoacao.entidades';
+import { PontoDeDoacao } from '../entidades/pontosdedoacao';
 
 @Injectable()
 export class PontoDeDoacaoService {
@@ -20,5 +18,7 @@ export class PontoDeDoacaoService {
     return this.pontoDeDoacaoRepository.findOneBy({ id });
   }
 
-  // Adicione outros métodos CRUD conforme necessário
+  async delete(id: number): Promise<void> {
+    await this.pontoDeDoacaoRepository.delete(id);
+  }
 }
