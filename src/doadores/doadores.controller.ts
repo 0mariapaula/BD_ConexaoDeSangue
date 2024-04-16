@@ -1,36 +1,33 @@
+// Remova a linha de importação dos DTOs que não existem
 import { Controller, Get, Post, Patch, Param, Body, Delete } from '@nestjs/common';
 import { DoadoresService } from './doadores.service';
-import { CreateDoadorDto, UpdateDoadorDto } from '../dtos/doador.dto'; // DTOs a serem criados
-
+// import { CreateDoadorDto, UpdateDoadorDto } from '../dtos/doador.dto'; // Linha removida
 
 @Controller('doadores')
 export class DoadoresController {
   constructor(private readonly doadoresService: DoadoresService) {}
 
-  @Get()
-  findAll() {
-    return this.doadoresService.findAll();
+  // ... outros métodos permanecem inalterados
+
+  // Substitua os métodos create e update para receber parâmetros simples em vez de DTOs
+  @Post()
+  create(
+    @Body('nome') nome: string,
+    @Body('telefone') telefone: string,
+    @Body('tipoSanguineo') tipoSanguineo: string,
+    @Body('disponibilidade') disponibilidade: boolean
+  ) {
+    return this.doadoresService.create(nome, telefone, tipoSanguineo, disponibilidade);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: number) {
-    return this.doadoresService.findOne(id);
+  @Patch(':id')
+  update(
+    @Param('id') id: number,
+    @Body('nome') nome: string,
+    @Body('telefone') telefone: string,
+    @Body('tipoSanguineo') tipoSanguineo: string,
+    @Body('disponibilidade') disponibilidade: boolean
+  ) {
+    return this.doadoresService.update(id, nome, telefone, tipoSanguineo, disponibilidade);
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: number) {
-    return this.doadoresService.delete(id);
-  }
-
-    // Create
-    @Post()
-    create(@Body() createDoadorDto: CreateDoadorDto) {
-      return this.doadoresService.create(createDoadorDto);
-    }
-  
-    // Update
-    @Patch(':id')
-    update(@Param('id') id: number, @Body() updateDoadorDto: UpdateDoadorDto) {
-      return this.doadoresService.update(id, updateDoadorDto);
-    }
 }
